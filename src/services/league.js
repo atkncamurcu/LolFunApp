@@ -25,7 +25,7 @@
 export const GetLeagueBySummonerID = (summonerID,region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/league/v3/positions/by-summoner/' + summonerID, {
             headers: headers,
             method: 'get'
@@ -84,7 +84,7 @@ export const GetLeagueBySummonerID = (summonerID,region) => new Promise((resolve
 export const GetLeagueUsersByLeagueID = (leagueID,region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/league/v3/leagues/' + leagueID, {
             headers: headers,
             method: 'get'
@@ -133,11 +133,11 @@ export const GetLeagueUsersByLeagueID = (leagueID,region) => new Promise((resolv
 */
 
 
-export const GetTopTierUsersByQueue = (queue,region) => new Promise((resolve,reject) => {
+export const GetTopTierUsersByQueue = (region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
-        fetch('https://' + region + '/lol/league/v3/challengerleagues/by-queue/' + queue, {
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
+        fetch('https://' + region + '/lol/league/v3/challengerleagues/by-queue/RANKED_SOLO_5x5', {
             //Queue type == (RANKED_SOLO_5X5),(RANKED_FLEX_SR),(RANKED_FLEX_TT)
             headers: headers,
             method: 'get'

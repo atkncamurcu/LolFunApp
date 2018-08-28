@@ -1,6 +1,8 @@
 import React from 'react';
 import {Navigation} from 'react-native-navigation';
 import { View, Image, ImageBackground, Picker, Text, TouchableOpacity} from 'react-native';
+import { OnNameChange, OnRegionChange } from '../actions'
+import { store } from "../store";
 
 
 import { connect } from 'react-redux';
@@ -8,17 +10,21 @@ import { IMAGES } from '../assets';
 import {HeaderComponent,UsernameComponent} from '../components';
 
 
-export class LoginScreen extends React.Component{
+
+export class _LoginScreen extends React.Component{
     
 
     state = { 
         region : 'uew1.api.riotgames.com'
         }
     _changeRegion = (region) => {
+
+        this.props.OnRegionChange(region);
         this.setState({region:region});
     }
 
     _onPress = () => {
+        console.log(store.getState());
        Navigation.startTabBasedApp({
            tabs:[
                {
@@ -26,7 +32,7 @@ export class LoginScreen extends React.Component{
                    label:'İstatistik'
                },
                {
-                   screen:'App.LeagueListScreen',
+                   screen:'App.MatchListScreen',
                    label:'Maçlar'
                },
                {
@@ -71,7 +77,10 @@ export class LoginScreen extends React.Component{
                         </Picker>
                     </View>
                     <View style = {{top:50,marginHorizontal:30,marginVertical:20}}>
-                        <UsernameComponent/>
+                        <UsernameComponent
+                            value={this.props.login.login_name}
+                            onChangeText={e => this.props.OnNameChange(e)}
+                        />
                     </View>
                     <TouchableOpacity style = {{ borderRadius:3.52,alignItems: 'center', backgroundColor:'#636AF6',marginHorizontal:30,marginVertical:40}} 
                         onPress={this._onPress}>
@@ -81,4 +90,10 @@ export class LoginScreen extends React.Component{
             </View>
         );
     }
-} 
+}
+
+const mapStoreToProps = ({ login }) => {
+    return { login: login };
+}
+
+export const LoginScreen = connect(mapStoreToProps, { OnNameChange, OnRegionChange })(_LoginScreen);

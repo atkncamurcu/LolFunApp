@@ -15,7 +15,6 @@ export default(state = INITIAL_STATE, action) => {
         case LOGIN_REGION_CHANGE:
             return {...state,login_region: action.payload};
 
-
         default:
             return state;
     }

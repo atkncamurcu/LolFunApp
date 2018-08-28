@@ -30,8 +30,8 @@
 export const GetMatchesByAccountID = (accountID,region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
-        fetch('https://' + region + '/lol/match/v3/matchlists/by-account' + accountID,{
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
+        fetch('https://' + region + '/lol/match/v3/matchlists/by-account/' + accountID,{
             headers: headers,
             method: 'get'
         })
@@ -265,10 +265,10 @@ export const GetMatchesByAccountID = (accountID,region) => new Promise((resolve,
 */
 
 
-export const GetSingleMatchByMatchID = (matchID,region) => new Promise((resolve,reject) => {
+export const GetSingleMatchByMatchID = (matchID,region) =>  new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/match/v3/matches/' + matchID, {
             headers: headers,
             method: 'get'

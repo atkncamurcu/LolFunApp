@@ -26,7 +26,7 @@
 export const GetAllStaticItems = (region) => new Promise((resolve,reject) =>{
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + ' /lol/static-data/v3/items',{
             headers: headers,
             method: 'get'
@@ -62,7 +62,7 @@ export const GetAllStaticItems = (region) => new Promise((resolve,reject) =>{
 export const GetStaticItemsByItemID = (itemID,region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/static-data/v3/items/' + itemID, {
             headers: headers,
             method: 'get'
@@ -70,63 +70,6 @@ export const GetStaticItemsByItemID = (itemID,region) => new Promise((resolve,re
         .then(res => {
             res.json()
             .then(jres => {
-                resolve(jres);
-            }).catch(e => {
-                reject(e);
-            })
-        }).catch(e => {
-            reject(e);
-        })
-        
-    }
-    catch(e){
-        reject(e);
-    }
-})
-
-/*
-    Response Data GetAllStaticProfileIcons
-    {
-        "data": {
-            "0": {
-                "image": {
-                    "full": "0.png",
-                    "group": "profileicon",
-                    "sprite": "profileicon0.png",
-                    "h": 48,
-                    "w": 48,
-                    "y": 0,
-                    "x": 0
-                },
-                "id": 0
-            },
-            "1": {
-                "image": {
-                    "full": "1.png",
-                    "group": "profileicon",
-                    "sprite": "profileicon0.png",
-                    "h": 48,
-                    "w": 48,
-                    "y": 0,
-                    "x": 48
-                },
-                "id": 1
-            }
-    }
-*/
-
-
-export const GetAllStaticProfileIcons = (region) => new Promise((resolve,reject) => {
-    try{
-        const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
-        fetch('https://' + region + '/lol/static-data/v3/profile-icons', {
-            headers: headers,
-            method: 'get'
-        })
-        .then(res => {
-            res.json()
-            .then(jres => {
                 resolve(jres);
             }).catch(e => {
                 reject(e);
@@ -169,7 +112,7 @@ export const GetAllStaticProfileIcons = (region) => new Promise((resolve,reject)
 export const GetAllStaticSummonerSpells = (region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/static-data/v3/summoner-spells', {
             headers: headers,
             method: 'get'
@@ -207,8 +150,59 @@ export const GetAllStaticSummonerSpells = (region) => new Promise((resolve,rejec
 export const GetStaticSummonerSpellsBySpellID = (spellID,region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/static-data/v3/summoner-spells' + spellID, {
+            headers: headers,
+            method: 'get'
+        })
+        .then(res => {
+            res.json()
+            .then(jres => {
+                resolve(jres);
+            }).catch(e => {
+                reject(e);
+            })
+        }).catch(e => {
+            reject(e);
+        })
+    }
+    catch(e){
+        reject(e);
+    }
+})
+
+
+
+/* 
+    Response Body
+        {
+        "lg": "8.14.1",
+        "dd": "8.14.1",
+        "l": "tr_TR",
+        "n": {
+            "summoner": "8.14.1",
+            "map": "8.14.1",
+            "champion": "8.14.1",
+            "language": "8.14.1",
+            "mastery": "7.23.1",
+            "sticker": "8.14.1",
+            "item": "8.14.1",
+            "rune": "7.23.1",
+            "profileicon": "8.14.1"
+        },
+        "profileiconmax": 28,
+        "v": "8.14.1",
+        "cdn": "https://ddragon.leagueoflegends.com/cdn",
+        "css": "8.14.1"
+        }
+*/
+
+
+export const GetStaticRealms = (region) => new Promise((resolve,reject) => {
+    try{
+        const headers = new Headers();
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
+        fetch('https://' + region + '/lol/static-data/v3/realms',{
             headers: headers,
             method: 'get'
         })

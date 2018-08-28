@@ -31,7 +31,7 @@
 export const GetAllChampMasteryBySummonerID = (summonerID,region) => new Promise((resolve,reject) =>{
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/champion-mastery/v3/champion-masteries/by-summoner/' + summonerID, {
             headers: headers,
             method: 'get'   
@@ -74,7 +74,7 @@ export const GetAllChampMasteryBySummonerID = (summonerID,region) => new Promise
 export const GetSingleChampMasteryByChampionID = (summonerID,championID,region) => new Promise((resolve,reject) => {
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/champion-mastery/v3/champion-masteries/by-summoner/' + summonerID + '/by-champion/' + championID,{
             headers: headers,
             method: 'get'

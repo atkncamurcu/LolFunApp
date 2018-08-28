@@ -1,5 +1,5 @@
 /*
-Response Data GetSummonerByID
+Response Data GetSummonerByName
 {
     "profileIconId": 3553,
     "name": "DontPanic1",
@@ -11,10 +11,11 @@ Response Data GetSummonerByID
 */
 
 
-export const GetSummonerByID = (name,region) => new Promise((resolve, reject) => {
+export const GetSummonerByName = (name,region) => new Promise((resolve, reject) => {
+    console.log(name + region);
     try{
         const headers = new Headers();
-        headers.append("X-Riot-Token", "RGAPI-ae558de7-8660-4fc5-a87a-f60b4d545c1f");
+        headers.append("X-Riot-Token", "RGAPI-11b64165-06cb-41b0-9008-06ed741bc673");
         fetch('https://' + region + '/lol/summoner/v3/summoners/by-name/' + name, {
             headers: headers,
             method: 'get'
@@ -34,4 +35,5 @@ export const GetSummonerByID = (name,region) => new Promise((resolve, reject) =>
         reject(e);
     }
 })
+
 
