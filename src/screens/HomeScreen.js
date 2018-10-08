@@ -196,7 +196,6 @@ export class _HomeScreen extends React.Component {
 
         let championpic0 = '';
         if(this.state.version != null && this.state.mastery != null){
-            
             championpic0 = "https://cdn.communitydragon.org/" + this.state.version[1]+ "/champion/" + this.state.mastery[0].championId+"/square"
         }
 

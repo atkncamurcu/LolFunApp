@@ -4,7 +4,7 @@ import { IMAGES } from '../assets';
 import uuid from 'uuid';
 import {HeaderComponent} from '../components';
 import { connect} from 'react-redux';
-import { GetSummonerByName, GetLeagueBySummonerID, GetAllChampMasteryBySummonerID, GetStaticRealms, GetCurrentVersion,GetMatchesByAccountID, GetSingleMatchByMatchID } from '../services';
+import { GetSummonerByName, GetLeagueBySummonerID, GetAllChampMasteryBySummonerID, GetStaticRealms, GetCurrentVersion,GetMatchesByAccountID,GetSummonerSpellsByName ,GetSingleMatchByMatchID } from '../services';
 
 
 export class _MatchListScreen extends React.Component{
@@ -19,6 +19,7 @@ export class _MatchListScreen extends React.Component{
             version: null,
             match: null,
             matchinfo: null,
+            summonerSpells: null
         }
     }
 
@@ -38,6 +39,7 @@ export class _MatchListScreen extends React.Component{
        console.log(item);
         let champicon = '';
         var index2;
+        var spellIndex;
         
         if(this.state.version != null && this.state.match != null ){
             for(index2=0; index2<10; index2++){
@@ -45,30 +47,82 @@ export class _MatchListScreen extends React.Component{
                     infoID = item.matchInfo.participantIdentities[index2].participantId
                     console.log(infoID)
                     champicon = "https://cdn.communitydragon.org/" + this.state.version[1]+ "/champion/" + item.champion+"/square";
-                    spell1 = 'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/spell/SummonerFlash.png';
-                    spell2 = 'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/spell/SummonerDot.png'; 
+                    for(spellIndex=0; spellIndex < this.state.summonerSpells.length-1; spellIndex++){
+                        if(item.matchInfo.participants[infoID-1].spell1Id == this.state.summonerSpells[spellIndex].id){
+                           var firstSpell = this.state.summonerSpells[spellIndex].iconPath;
+                           var res = firstSpell.substr(41,firstSpell.length-1);
+                           var url = res.toLowerCase();
+                           spell1 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d'+url;
+                        }
+                        if(item.matchInfo.participants[infoID-1].spell2Id == this.state.summonerSpells[spellIndex].id){
+                            var secondSpell = this.state.summonerSpells[spellIndex].iconPath;
+                            var res = secondSpell.substr(41,secondSpell.length-1);
+                            var url = res.toLowerCase();
+                            spell2 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d'+url;
+                        }
+                    }
+                   
+                    
+                    gold = 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/gold.png';
+                    minion = 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/minion.png';
+                    date = 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/spells.png';
+                    score = 'https://ddragon.leagueoflegends.com/cdn/5.5.1/img/ui/score.png';
                     
                     
                     if(this.state.match != null && this.state.user != null){
                         item0 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item0 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item0 == 0)
+                        {
+                            item0 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
+
                     if(this.state.match != null && this.state.user != null){
                         item1 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item1 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item1 == 0)
+                        {
+                            item1 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
+
                     if(this.state.match != null && this.state.user != null){
                         item2 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item2 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item2 == 0)
+                        {
+                            item2 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
+
                     if(this.state.match != null && this.state.user != null){
                         item3 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item3 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item3 == 0)
+                        {
+                            item3 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
+                    
                     if(this.state.match != null && this.state.user != null){
                         item4 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item4 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item4 == 0)
+                        {
+                            item4 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
+
                     if(this.state.match != null && this.state.user != null){
                         item5 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item5 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item5 == 0)
+                        {
+                            item5 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
+                    
                     if(this.state.match != null && this.state.user != null){
                         item6 =  'https://ddragon.leagueoflegends.com/cdn/8.16.1/img/item/'+ item.matchInfo.participants[infoID-1].stats.item6 +'.png';
+                        if(item.matchInfo.participants[infoID-1].stats.item6 == 0)
+                        {
+                            item6 = 'https://raw.communitydragon.org/latest/game/data/spells/icons2d/summoner_empty.png';
+                        }
                     }
                    }
             }
@@ -78,53 +132,30 @@ export class _MatchListScreen extends React.Component{
         for(indexID=0; indexID<2; indexID++)
         {
             if(item.matchInfo.participants[infoID-1].teamId == item.matchInfo.teams[indexID].teamId){
+                
+                let defOrWin;
                 if(item.matchInfo.teams[indexID].win === 'Fail' ){
-                    return(
-                        <View style = {{width:'100%',flex:1,marginTop:20}}>
-                        <View style = {{flex:3,width:'100%'}}>
-                                <Text style = {{fontWeight:'bold',fontSize:20,color:'red',flex:1,justifyContent:'center'}}> 
-                                    DEFEAT
-                                </Text>
-                        </View>
-                        <View style = {{flex:3,flexDirection:'row',flex:3,width:'100%'}}>
-                            <View style = {{width:80}}>
-                                <Image source = {{ uri: champicon }} style={{width:80,height:80}}/>
-                                <View style = {{flexDirection:'row',width:'100%'}}>
-                                    <Image source = {{ uri: spell1 }} style={{width:40,height:40}}/>
-                                    <Image source = {{ uri: spell2 }} style={{width:40,height:40}}/>
-                                </View>
-                            </View> 
-                            <View style = {{flex:3,flexDirection:'column',width:'100%'}}>
-                                <View style = {{flex:3,width:'100%'}}>
-                                    <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
-                                        K/D/A:   { item.matchInfo.participants[infoID-1].stats.kills}/{ item.matchInfo.participants[infoID-1].stats.deaths}/{ item.matchInfo.participants[infoID-1].stats.assists}                   Gold: {item.matchInfo.participants[infoID-1].stats.goldEarned}
-                                    </Text>
-                                    <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
-                                        {this.timestampConverter(item.timestamp)}                            Creeps:  {(item.matchInfo.participants[infoID-1].stats.totalMinionsKilled) + (item.matchInfo.participants[infoID-1].stats.neutralMinionsKilled)}
-                                    </Text>
-                                </View>
-                                <View style = {{flexDirection:'row',height:60,alignItems:'center'}}>
-                                    <Image source = {{ uri: item0 }} style={{marginLeft:3,width:44,height:44}}/>
-                                    <Image source = {{ uri: item1 }} style={{marginLeft:3,width:44,height:44}}/>
-                                    <Image source = {{ uri: item2 }} style={{marginLeft:3,width:44,height:44}}/>
-                                    <Image source = {{ uri: item3 }} style={{marginLeft:3,width:44,height:44}}/>
-                                    <Image source = {{ uri: item4 }} style={{marginLeft:3,width:44,height:44}}/>
-                                    <Image source = {{ uri: item5 }} style={{marginLeft:3,width:44,height:44}}/>
-                                    <Image source = {{ uri: item6 }} style={{marginLeft:3,width:44,height:44}}/>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
-                    )
+                    defOrWin = () => {
+                        return (
+                            <Text style = {{fontWeight:'bold',fontSize:20,color:'red',flex:1,justifyContent:'center'}}> 
+                                DEFEATH
+                            </Text>
+                        );
+                    };
                 }
                 else{
-                return(
-                    <View style = {{width:'100%',flex:1,marginTop:20}}>
-                    <View style = {{flex:3,width:'100%'}}>
+                    defOrWin = () => {
+                        return (
                             <Text style = {{fontWeight:'bold',fontSize:20,color:'green',flex:1,justifyContent:'center'}}> 
                                 VICTORY
                             </Text>
-                    </View>
+                         );
+                        };
+                }
+
+                return(
+                    <View style = {{width:'100%',flex:1,marginTop:20}}>
+                    <View style = {{flex:3,width:'100%'}}>{defOrWin()}</View>
                     <View style = {{flex:3,flexDirection:'row',flex:3,width:'100%'}}>
                         <View style = {{width:80}}>
                             <Image source = {{ uri: champicon }} style={{width:80,height:80}}/>
@@ -135,27 +166,40 @@ export class _MatchListScreen extends React.Component{
                         </View> 
                         <View style = {{flex:3,flexDirection:'column',width:'100%'}}>
                             <View style = {{flex:3,width:'100%'}}>
-                                <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
-                                    K/D/A:  { item.matchInfo.participants[infoID-1].stats.kills}/{ item.matchInfo.participants[infoID-1].stats.deaths}/{ item.matchInfo.participants[infoID-1].stats.assists}              Gold: {item.matchInfo.participants[infoID-1].stats.goldEarned}
-                                </Text>
-                                <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
-                                    {this.timestampConverter(item.timestamp)}                           Creeps:  {(item.matchInfo.participants[infoID-1].stats.totalMinionsKilled) + (item.matchInfo.participants[infoID-1].stats.neutralMinionsKilled)}
-                                </Text>
+                                <View style = {{marginBottom:10,flex:3,width:'100%',flexDirection:'row'}}>
+                                    <Image source = {{ uri: score }} style={{marginLeft:5,width:40,height:40}}/>
+                                    <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
+                                        { item.matchInfo.participants[infoID-1].stats.kills}/{ item.matchInfo.participants[infoID-1].stats.deaths}/{ item.matchInfo.participants[infoID-1].stats.assists}
+                                    </Text>
+                                    <Image source = {{ uri: gold }} style={{marginLeft:5,width:40,height:40}}/>
+                                    <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
+                                        {item.matchInfo.participants[infoID-1].stats.goldEarned}
+                                    </Text>
+                                </View>
+                                <View style = {{flex:3,width:'100%',flexDirection:'row'}}>
+                                    <Image source = {{ uri: date }} style={{marginLeft:5,width:40,height:40}}/>
+                                    <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
+                                        {this.timestampConverter(item.timestamp)}
+                                    </Text>
+                                    <Image source = {{ uri: minion }} style={{marginLeft:5,width:40,height:40}}/>
+                                    <Text style = {{fontSize:20,color:'#FFF',flex:1,justifyContent:'center'}}> 
+                                       {(item.matchInfo.participants[infoID-1].stats.totalMinionsKilled) + (item.matchInfo.participants[infoID-1].stats.neutralMinionsKilled)}
+                                    </Text>
+                                </View>
                             </View>
-                            <View style = {{flexDirection:'row',height:60,alignItems:'center'}}>
-                                <Image source = {{ uri: item0 }} style={{marginLeft:3,width:44,height:44}}/>
-                                <Image source = {{ uri: item1 }} style={{marginLeft:3,width:44,height:44}}/>
-                                <Image source = {{ uri: item2 }} style={{marginLeft:3,width:44,height:44}}/>
-                                <Image source = {{ uri: item3 }} style={{marginLeft:3,width:44,height:44}}/>
-                                <Image source = {{ uri: item4 }} style={{marginLeft:3,width:44,height:44}}/>
-                                <Image source = {{ uri: item5 }} style={{marginLeft:3,width:44,height:44}}/>
-                                <Image source = {{ uri: item6 }} style={{marginLeft:3,width:44,height:44}}/>
+                            <View style = {{bottom:19,flexDirection:'row',height:60,alignItems:'center'}}>
+                                <Image source = {{ uri: item0 }} style={{marginLeft:3,width:40,height:40}}/>
+                                <Image source = {{ uri: item1 }} style={{marginLeft:3,width:40,height:40}}/>
+                                <Image source = {{ uri: item2 }} style={{marginLeft:3,width:40,height:40}}/>
+                                <Image source = {{ uri: item3 }} style={{marginLeft:3,width:40,height:40}}/>
+                                <Image source = {{ uri: item4 }} style={{marginLeft:3,width:40,height:40}}/>
+                                <Image source = {{ uri: item5 }} style={{marginLeft:3,width:40,height:40}}/>
+                                <Image source = {{ uri: item6 }} style={{marginLeft:3,width:40,height:40}}/>
                             </View>
                         </View>
                     </View>
                 </View>
                 )
-                }
             }
         }
     }
@@ -218,6 +262,20 @@ export class _MatchListScreen extends React.Component{
         })
     }
     
+ 
+    _getSummonerSpells = () => {
+        GetSummonerSpellsByName()
+        .then(res => {
+            res.json().then(jres => {
+                console.log(jres)
+                this.setState({summonerSpells : jres})
+
+            })
+        }).catch(e =>{
+
+        })
+    }
+    
    componentWillMount(){
         GetSummonerByName(this.props.login.login_name, this.props.login.login_region)
         .then(res => {
@@ -227,7 +285,7 @@ export class _MatchListScreen extends React.Component{
             this._getMastery();
             this._getMatch();
             this._getVersion();
-            //this._getMatchInfo();
+            this._getSummonerSpells();
         }).catch(e => {
             
         })       
